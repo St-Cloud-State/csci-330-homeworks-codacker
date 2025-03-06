@@ -1,0 +1,78 @@
+Script started on 2025-03-06 21:55:56+00:00 [TERM="xterm-256color" TTY="/dev/pts/3" COLUMNS="139" LINES="21"]
+[0;32m@codacker [0m➜ [1;34m/workspaces/csci-330-homeworks-codacker/sbcl-1.4.3-x86-linux [0;36m([1;31mmain[0;36m) [0m$ Script started, file is Q1
+bash: Script: command not found
+[0;32m@codacker [1;31m➜ [1;34m/workspaces/csci-330-homeworks-codacker/sbcl-1.4.3-x86-linux [0;36m([1;31mmain[0;36m) [0m$ sbcl
+This is SBCL 1.4.3, an implementation of ANSI Common Lisp.
+More information about SBCL is available at <http://www.sbcl.org/>.
+
+SBCL is free software, provided as is, with absolutely no warranty.
+It is mostly in the public domain; some portions are provided under
+BSD-style licenses.  See the CREDITS and COPYING files in the
+distribution for more information.
+* (not (equal 3 (abs -3)))
+(/ (+ 8 12) 2)
+(+ (* 3 3)
+NIL
+* 
+10
+*  (* 4 4))
+
+(defun miles-per-gallon (initial-odomet
+25
+* er-reading final-odometer-reading gallons-consumed)
+  (/ (- final-odometer-reading initial-odometer-reading) gallons-consumed))
+
+(third '(the quick br
+MILES-PER-GALLON
+* own fox))
+(list 2 'and 2 'is 4)
+(+ 1 (length (list
+BROWN
+* 
+(2 AND 2 IS 4)
+*  t t t t)))
+(cons 'patrick '(seymour marvin))
+(con
+5
+* 
+(PATRICK SEYMOUR MARVIN)
+* s 'patrick (list 'seymour 'marvin))
+
+(defun myster
+(PATRICK SEYMOUR MARVIN)
+* y (x)
+  (list (second x) (first x)))
+
+(mystery '(d
+MYSTERY
+* ancing bear))
+(mystery '(zowie))
+(mystery (list 'f
+(BEAR DANCING)
+* 
+(NIL ZOWIE)
+* irst 'second))
+
+(defun speak (x y) (list 'all x 'i
+(SECOND FIRST)
+* s y))
+
+(list 'cons t nil)
+(eval (list 'cons t nil)
+SPEAK
+* 
+(CONS T NIL)
+* )
+(apply #'cons '(t nil))
+(list 'eval nil)
+
+(T)
+* 
+(T)
+* 
+(EVAL NIL)
+* (exit)
+[0;32m@codacker [0m➜ [1;34m/workspaces/csci-330-homeworks-codacker/sbcl-1.4.3-x86-linux [0;36m([1;31mmain[0;36m) [0m$ exit
+exit
+
+Script done on 2025-03-06 21:58:45+00:00 [COMMAND_EXIT_CODE="0"]
