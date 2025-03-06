@@ -1,0 +1,9 @@
+;; Running Bottom-Up Mergesort in Lisp
+
+$ sbcl
+* (load "bottom_up_mergesort.lisp")
+
+Sorted List: (1 2 3 4 5 6 7 8 9)
+Sorted List: (3 7 8 10 15 18 23 74)
+
+* (exit)
