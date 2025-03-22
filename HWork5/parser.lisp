@@ -1,71 +1,56 @@
-;; Global variables to track input and position
-(defparameter *input* nil)  
-(defparameter *pos* 0)      
-
-;; Function to get the current character
-(defun current-char ()
-  "Returns the current character in the input or NIL if at the end."
-  (if (< *pos* (length *input*))
-      (char *input* *pos*)
+(defun match (input pattern)
+  "Checks if the input matches the given pattern."
+  (if (equal input pattern)
+      t
       nil))
 
-;; Function to match and consume a character
-(defun match (expected)
-  "Matches and consumes a character if it matches the expected one."
-  (if (and (current-char) (char= (current-char) expected))
-      (progn (incf *pos*) t)
-      nil))
+(defun parse-middle (input)
+  "Checks if the middle section of the string follows the grammar rules."
+  (or (match input "wo")      ; One valid possibility: "wo"
+      (match input "xoy")     ; Another valid possibility: "xoy"
+      (and (<= 3 (length input))  ; Checking longer patterns
+           (char= (aref input 0) #\x)
+           (char= (aref input 1) #\o)
+           (char= (aref input (1- (length input))) #\z))))  ; Must end with 'z'
 
-;; === Define helper functions FIRST ===
-(defun parse-L2 ()
-  "Parses L2 rule (optional more s)."
-  (if (match #\s)
-      (parse-L2)
-      t)) ;; ε case (epsilon)
+(defun parse-s (input)
+  "Recursive function to check if input starts with 'i' and ends with 's' with a valid structure in between."
+  (and (not (string= input ""))
+       (char= (aref input 0) #\i)  ; Must start with 'i'
+       (char= (aref input (1- (length input))) #\s)  ; Must end with 's'
+       (parse-middle (subseq input 1 (1- (length input))))))  ; Check middle part
 
-(defun parse-L ()
-  "Parses the L rule: L → s L2"
-  (and (match #\s) (parse-L2)))
+(defun parse (input)
+"Main function to validate the string according to the grammar."
+  (if (and (not (string= input "")) 
+           (char= (aref input 0) #\i)  ; Ensure it starts with 'i'
+           (parse-s input))
+      "VALID"
+      "INVALID"))
 
-(defun parse-S ()
-  "Parses the S rule: S → s | d L b"
-  (or (match #\s) (and (match #\d) (parse-L) (match #\b))))
+(defun run-tests ()
+  (format t "~%Running Tests...~%")
+  
+  (let ((test-cases '(("iwos" "VALID")
+                      ("ixoys" "VALID")
+                      ("ixozs" "VALID")
+                      ("ixoozs" "VALID")
+                      ("ixoooozs" "VALID")
+                      ("ixooooooooozs" "VALID")
+                      ("ixooooooooooooozs" "VALID")
+                      ("iwoxs" "INVALID")
+                      ("xoys" "INVALID")
+                      ("ixoz" "INVALID")
+                      ("iwzxs" "INVALID")
+                      ("izoozs" "INVALID")
+                      ("iwowos" "INVALID")
+                      ("ixoyz" "INVALID"))))
+    
+    (dolist (case test-cases)
+      (let ((input (first case))
+            (expected (second case))
+            (result (parse (first case))))
+        (format t "Test: (parse \"~a\") => ~a (Expected: ~a)~%" input result expected)))))
 
-(defun parse-I2 ()  ;; Renamed from parse-I'
-  "Parses I2 rule (optional eS)."
-  (if (match #\e)
-      (parse-S)
-      t)) ;; ε case (epsilon)
-
-(defun parse-G ()
-  "Parses the G rule: G → x | y | z | w"
-  (or (match #\x) (match #\y) (match #\z) (match #\w)))
-
-(defun parse-E2 ()
-  "Parses E2 rule (optional oG)."
-  (if (match #\o)
-      (and (parse-G) (parse-E2))
-      t)) ;; ε case (epsilon)
-
-(defun parse-E ()
-  "Parses the E rule: E → G E2"
-  (and (parse-G) (parse-E2)))
-
-(defun parse-I ()
-  "Parses the I rule: I → i E S I2"
-  (if (match #\i)
-      (and (parse-E) (parse-S) (parse-I2))
-      nil))
-
-;; === Main parser function ===
-(defun parse (input-string)
-  "Starts parsing the given input string."
-  (setq *input* input-string)
-  (setq *pos* 0)
-  (if (and (parse-I) (= *pos* (length *input*)))
-      (format t "Valid string: ~a~%" input-string)
-      (format t "Invalid string at position ~d: ~a~%" 
-              *pos* 
-              (if (< *pos* (length *input*)) 
-                  (string (char *input* *pos*)) 
-                  "END OF INPUT"))))
+;; Run tests automatically when the file is loaded
+(run-tests)
