@@ -1,0 +1,32 @@
+Script started on 2025-03-23 07:58:52+00:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="139" LINES="8"]
+[0;32m@codacker [0m➜ [1;34m/workspaces/csci-330-homeworks-codacker/HWork5 [0;36m([1;31mmain[0;36m) [0m$ sbcl
+This is SBCL 1.4.3, an implementation of ANSI Common Lisp.
+More information about SBCL is available at <http://www.sbcl.org/>.
+
+SBCL is free software, provided as is, with absolutely no warranty.
+It is mostly in the public domain; some portions are provided under
+BSD-style licenses.  See the CREDITS and COPYING files in the
+distribution for more information.
+* (load "parser.lisp")
+
+Running Tests...
+Test: (parse "iwos") => VALID (Expected: VALID)
+Test: (parse "ixoys") => VALID (Expected: VALID)
+Test: (parse "ixozs") => VALID (Expected: VALID)
+Test: (parse "ixoozs") => VALID (Expected: VALID)
+Test: (parse "ixoooozs") => VALID (Expected: VALID)
+Test: (parse "ixooooooooozs") => VALID (Expected: VALID)
+Test: (parse "ixooooooooooooozs") => VALID (Expected: VALID)
+Test: (parse "iwoxs") => Unexpected symbol at position 4 (Expected: Unexpected symbol at position 4)
+Test: (parse "xoys") => Unexpected symbol at position 1 (Expected: Unexpected symbol at position 0)
+Test: (parse "ixoz") => Unexpected symbol at position 3 (Expected: Unexpected symbol at position 3)
+Test: (parse "iwzxs") => Unexpected symbol at position 4 (Expected: Unexpected symbol at position 2)
+Test: (parse "izoozs") => Unexpected symbol at position 5 (Expected: Unexpected symbol at position 1)
+Test: (parse "iwowos") => Unexpected symbol at position 5 (Expected: Unexpected symbol at position 2)
+Test: (parse "ixoyz") => Unexpected symbol at position 4 (Expected: Unexpected symbol at position 4)
+T
+* (exit)
+[0;32m@codacker [0m➜ [1;34m/workspaces/csci-330-homeworks-codacker/HWork5 [0;36m([1;31mmain[0;36m) [0m$ exit
+exit
+
+Script done on 2025-03-23 07:59:13+00:00 [COMMAND_EXIT_CODE="0"]
